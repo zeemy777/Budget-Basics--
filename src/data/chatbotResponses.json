@@ -1,0 +1,34 @@
+[
+  {
+    "keywords": ["need", "needs", "what is a need", "essential"],
+    "answer": "A Need is something essential for living, studying, or basic well-being. Examples: food, rent/hostel, transport to college, textbooks, electricity, and basic healthcare."
+  },
+  {
+    "keywords": ["want", "wants", "what is a want"],
+    "answer": "A Want is something that makes life more enjoyable but is not essential. Examples: streaming subscriptions, new gadgets, eating out, branded clothes, and games."
+  },
+  {
+    "keywords": ["50-30-20", "50 30 20", "rule", "budget rule"],
+    "answer": "The 50-30-20 rule suggests splitting your income into: 50% for Needs, 30% for Wants, and 20% for Savings. It is only a guideline — adjust it based on your real situation."
+  },
+  {
+    "keywords": ["save", "saving", "how much should i save", "savings"],
+    "answer": "A good starting point for students is to save at least 10–20% of your income. Even small consistent amounts build strong habits."
+  },
+  {
+    "keywords": ["overspending", "avoid overspending", "spend less", "control spending"],
+    "answer": "To avoid overspending: 1) Track every expense for a week, 2) Use the 24-hour rule before buying wants, 3) Follow a simple budget, and 4) Cancel unused subscriptions."
+  },
+  {
+    "keywords": ["impulse", "impulse buying"],
+    "answer": "Impulse buying happens when you purchase something without planning. Fight it with the 24-hour rule: wait one full day before buying anything non-essential."
+  },
+  {
+    "keywords": ["subscription", "subscriptions"],
+    "answer": "Unused subscriptions silently drain money every month. Review all your subscriptions once a month and cancel anything you haven’t used in the last 30 days."
+  },
+  {
+    "keywords": ["hello", "hi", "hey"],
+    "answer": "Hello! I’m the BudgetBasics assistant. Ask me about needs, wants, saving, budgeting, or common money mistakes."
+  }
+]

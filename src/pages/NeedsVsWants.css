@@ -1,0 +1,408 @@
+.needs-vs-wants {
+  padding-bottom: 3rem;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.page-header h1 {
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
+  color: #0f766e;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #64748b;
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+/* Comparison Section */
+.comparison-section {
+  margin-bottom: 3rem;
+}
+
+.comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.comparison-card {
+  background: white;
+  border-radius: 14px;
+  padding: 1.75rem;
+  border: 2px solid transparent;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+}
+
+.needs-card {
+  border-color: #86efac;
+  background: linear-gradient(to bottom, #f0fdf4, white);
+}
+
+.wants-card {
+  border-color: #fcd34d;
+  background: linear-gradient(to bottom, #fffbeb, white);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.5rem;
+}
+
+.card-header .icon {
+  font-size: 1.6rem;
+}
+
+.card-header h2 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.needs-card h2 {
+  color: #15803d;
+}
+
+.wants-card h2 {
+  color: #b45309;
+}
+
+.card-desc {
+  color: #64748b;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+.comparison-card ul {
+  margin: 0;
+  padding-left: 1.2rem;
+  color: #334155;
+}
+
+.comparison-card li {
+  margin-bottom: 0.4rem;
+}
+
+.vs-badge {
+  background: #0f766e;
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 10px rgba(15, 118, 110, 0.3);
+}
+
+/* Classifier Section */
+.classifier-section {
+  margin-bottom: 3rem;
+}
+
+.classifier-section h2,
+.decision-guide h2 {
+  font-size: 1.6rem;
+  color: #134e4a;
+  margin-bottom: 0.5rem;
+}
+
+.section-desc {
+  color: #64748b;
+  margin-bottom: 1.5rem;
+}
+
+.items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.item-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.2rem 1.4rem;
+  transition: border-color 0.2s;
+}
+
+.item-card.correct {
+  border-color: #86efac;
+  background: #f0fdf4;
+}
+
+.item-card.wrong {
+  border-color: #fca5a5;
+  background: #fef2f2;
+}
+
+.item-name {
+  font-weight: 500;
+  margin-bottom: 0.9rem;
+  color: #1e293b;
+}
+
+.item-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.choice-btn {
+  padding: 0.5rem 1.2rem;
+  border-radius: 8px;
+  border: 2px solid #e2e8f0;
+  background: white;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.choice-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.need-btn.active {
+  background: #dcfce7;
+  border-color: #22c55e;
+  color: #15803d;
+}
+
+.want-btn.active {
+  background: #fef3c7;
+  border-color: #f59e0b;
+  color: #b45309;
+}
+
+.choice-btn:disabled {
+  cursor: default;
+}
+
+.feedback {
+  margin-top: 0.9rem;
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+.correct-feedback {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.wrong-feedback {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.quiz-controls {
+  text-align: center;
+}
+
+.primary-btn {
+  background: #0f766e;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.8rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.primary-btn:hover:not(:disabled) {
+  background: #0d9488;
+}
+
+.primary-btn:disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
+}
+
+.results-summary {
+  background: #f0fdfa;
+  border: 1px solid #99f6e4;
+  border-radius: 10px;
+  padding: 1.2rem;
+  display: inline-block;
+}
+
+.results-summary p {
+  margin: 0 0 0.9rem 0;
+  font-size: 1.1rem;
+}
+
+/* Decision Guide / Flowchart */
+.decision-guide {
+  margin-bottom: 2.5rem;
+}
+
+.flowchart {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 2rem;
+}
+
+.flow-step {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.flow-step.start {
+  background: #ecfdf5;
+  border-color: #6ee7b7;
+}
+
+.flow-question {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin-top: 0.3rem;
+}
+
+.flow-branches {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.branch-label {
+  display: inline-block;
+  padding: 0.3rem 0.9rem;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  margin-bottom: 0.6rem;
+}
+
+.branch-label.yes {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.branch-label.no {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.sub-branches {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 0.8rem;
+}
+
+.result-need {
+  background: #dcfce7 !important;
+  border-color: #86efac !important;
+}
+
+.result-wait {
+  background: #e0f2fe !important;
+  border-color: #7dd3fc !important;
+}
+
+.result-want {
+  background: #fef3c7 !important;
+  border-color: #fcd34d !important;
+}
+
+.flow-step p {
+  margin: 0.4rem 0 0 0;
+  font-size: 0.9rem;
+  color: #475569;
+}
+
+/* Bottom Tip */
+.bottom-tip {
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  border-radius: 10px;
+  padding: 1.1rem 1.4rem;
+  color: #134e4a;
+  font-size: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .comparison-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .vs-badge {
+    margin: 0 auto;
+  }
+
+  .flow-branches {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Dark mode */
+[data-theme="dark"] .comparison-card,
+[data-theme="dark"] .item-card,
+[data-theme="dark"] .flowchart {
+  background: #1e293b;
+  border-color: #334155;
+  color: #e2e8f0;
+}
+
+[data-theme="dark"] .needs-card {
+  background: linear-gradient(to bottom, #14532d, #1e293b);
+}
+
+[data-theme="dark"] .wants-card {
+  background: linear-gradient(to bottom, #78350f, #1e293b);
+}
+
+[data-theme="dark"] .item-name,
+[data-theme="dark"] .comparison-card li {
+  color: #e2e8f0;
+}
+
+[data-theme="dark"] .choice-btn {
+  background: #1e293b;
+  border-color: #475569;
+  color: #e2e8f0;
+}
+
+[data-theme="dark"] .page-header h1 {
+  color: #2dd4bf;
+}
+
+[data-theme="dark"] .flow-step {
+  background: #334155;
+  border-color: #475569;
+}
+/* ===== Dark mode – Active button states (Needs vs Wants) ===== */
+[data-theme="dark"] .need-btn.active {
+  background: #166534 !important;      /* dark green */
+  border-color: #22c55e !important;
+  color: #bbf7d0 !important;
+}
+
+[data-theme="dark"] .want-btn.active {
+  background: #92400e !important;      /* dark amber */
+  border-color: #f59e0b !important;
+  color: #fde68a !important;
+}
+
+/* Optional: improve hover in dark mode too */
+[data-theme="dark"] .choice-btn:hover:not(:disabled) {
+  background: #334155;
+  border-color: #64748b;
+}

@@ -1,0 +1,400 @@
+.rule-503020 {
+  padding-bottom: 3rem;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.page-header h1 {
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
+  color: #0f766e;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #64748b;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Rule Explanation Cards */
+.explanation-section {
+  margin-bottom: 3rem;
+}
+
+.rule-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.rule-card {
+  background: white;
+  border-radius: 14px;
+  padding: 1.75rem;
+  border: 2px solid transparent;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+  text-align: center;
+}
+
+.rule-card.needs {
+  border-color: #86efac;
+  background: linear-gradient(to bottom, #f0fdf4, white);
+}
+
+.rule-card.wants {
+  border-color: #fcd34d;
+  background: linear-gradient(to bottom, #fffbeb, white);
+}
+
+.rule-card.savings {
+  border-color: #67e8f9;
+  background: linear-gradient(to bottom, #ecfeff, white);
+}
+
+.percentage {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 0.3rem;
+}
+
+.rule-card.needs .percentage {
+  color: #15803d;
+}
+
+.rule-card.wants .percentage {
+  color: #b45309;
+}
+
+.rule-card.savings .percentage {
+  color: #0e7490;
+}
+
+.rule-card h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.3rem;
+}
+
+.rule-card p {
+  color: #64748b;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+.rule-card ul {
+  text-align: left;
+  padding-left: 1.2rem;
+  margin: 0;
+  color: #334155;
+  font-size: 0.95rem;
+}
+
+.rule-card li {
+  margin-bottom: 0.3rem;
+}
+
+/* Calculator Section */
+.calculator-section {
+  margin-bottom: 2.5rem;
+}
+
+.calculator-section h2 {
+  font-size: 1.6rem;
+  color: #134e4a;
+  margin-bottom: 0.4rem;
+}
+
+.section-desc {
+  color: #64748b;
+  margin-bottom: 1.5rem;
+}
+
+.calculator-form {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.75rem;
+  max-width: 480px;
+  margin-bottom: 2rem;
+}
+
+.input-group {
+  margin-bottom: 1.2rem;
+}
+
+.input-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: #334155;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  transition: border-color 0.2s;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #0f766e;
+}
+
+.error-message {
+  background: #fef2f2;
+  color: #b91c1c;
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  border: 1px solid #fca5a5;
+}
+
+.form-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.primary-btn {
+  background: #0f766e;
+  color: white;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.primary-btn:hover {
+  background: #0d9488;
+}
+
+.secondary-btn {
+  background: white;
+  color: #0f766e;
+  border: 2px solid #0f766e;
+  padding: 0.7rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.secondary-btn:hover {
+  background: #f0fdfa;
+}
+
+/* Results */
+.results-box {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 1.75rem;
+}
+
+.results-box h3 {
+  margin-top: 0;
+  margin-bottom: 0.4rem;
+  color: #0f766e;
+}
+
+.income-display {
+  color: #64748b;
+  margin-bottom: 1.5rem;
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.2rem;
+  margin-bottom: 1.75rem;
+}
+
+.result-card {
+  background: #f8fafc;
+  border-radius: 10px;
+  padding: 1.2rem;
+  text-align: center;
+}
+
+.result-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: #475569;
+}
+
+.result-amount {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+}
+
+.needs-result .result-amount {
+  color: #15803d;
+}
+
+.wants-result .result-amount {
+  color: #b45309;
+}
+
+.savings-result .result-amount {
+  color: #0e7490;
+}
+
+.progress-bar {
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 4px;
+}
+
+.needs-fill {
+  background: #22c55e;
+}
+
+.wants-fill {
+  background: #f59e0b;
+}
+
+.savings-fill {
+  background: #06b6d4;
+}
+
+/* Visual Bar */
+.visual-bar-container {
+  margin-top: 1rem;
+}
+
+.visual-bar {
+  display: flex;
+  height: 42px;
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: white;
+}
+
+.bar-segment {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.needs-seg {
+  background: #22c55e;
+}
+
+.wants-seg {
+  background: #f59e0b;
+}
+
+.savings-seg {
+  background: #06b6d4;
+}
+
+/* Educational Note */
+.educational-note {
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  border-left: 5px solid #f97316;
+  border-radius: 0 10px 10px 0;
+  padding: 1.3rem 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.educational-note h3 {
+  margin-top: 0;
+  margin-bottom: 0.6rem;
+  color: #c2410c;
+}
+
+.educational-note p {
+  margin: 0 0 0.6rem 0;
+  color: #9a3412;
+  line-height: 1.5;
+}
+
+.educational-note p:last-child {
+  margin-bottom: 0;
+}
+
+/* Bottom Tip */
+.bottom-tip {
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  border-radius: 10px;
+  padding: 1.1rem 1.4rem;
+  color: #134e4a;
+  font-size: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .visual-bar {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .bar-segment {
+    padding: 0.6rem;
+  }
+}
+
+/* Dark mode */
+[data-theme="dark"] .rule-card,
+[data-theme="dark"] .calculator-form,
+[data-theme="dark"] .results-box,
+[data-theme="dark"] .result-card {
+  background: #1e293b;
+  border-color: #334155;
+  color: #e2e8f0;
+}
+
+[data-theme="dark"] .rule-card.needs {
+  background: linear-gradient(to bottom, #14532d, #1e293b);
+}
+
+[data-theme="dark"] .rule-card.wants {
+  background: linear-gradient(to bottom, #78350f, #1e293b);
+}
+
+[data-theme="dark"] .rule-card.savings {
+  background: linear-gradient(to bottom, #164e63, #1e293b);
+}
+
+[data-theme="dark"] .input-group input {
+  background: #0f172a;
+  border-color: #475569;
+  color: #e2e8f0;
+}
+
+[data-theme="dark"] .page-header h1 {
+  color: #2dd4bf;
+}
+
+[data-theme="dark"] .educational-note {
+  background: #431407;
+  border-color: #c2410c;
+  color: #fdba74;
+}
+
+[data-theme="dark"] .educational-note h3,
+[data-theme="dark"] .educational-note p {
+  color: #fdba74;
+}

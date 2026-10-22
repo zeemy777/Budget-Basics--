@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "title": "Needs vs Wants",
+    "topic": "Basics",
+    "description": "A clear visual comparison between essential expenses (Needs) and optional expenses (Wants).",
+    "color": "#0f766e",
+    "icon": "⚖️"
+  },
+  {
+    "id": 2,
+    "title": "50-30-20 Rule",
+    "topic": "Budgeting",
+    "description": "Simple breakdown showing 50% Needs, 30% Wants, and 20% Savings.",
+    "color": "#0891b2",
+    "icon": "📊"
+  },
+  {
+    "id": 3,
+    "title": "Monthly Budget Cycle",
+    "topic": "Budgeting",
+    "description": "Receive income → Allocate → Spend mindfully → Track → Adjust → Save.",
+    "color": "#7c3aed",
+    "icon": "🔄"
+  },
+  {
+    "id": 4,
+    "title": "Saving Challenges",
+    "topic": "Savings",
+    "description": "Fun saving challenges for students — 30-day no-spend and ₹50 daily save.",
+    "color": "#059669",
+    "icon": "🎯"
+  },
+  {
+    "id": 5,
+    "title": "Emergency Fund Basics",
+    "topic": "Savings",
+    "description": "Why every student should build a small emergency fund.",
+    "color": "#d97706",
+    "icon": "🛡️"
+  },
+  {
+    "id": 6,
+    "title": "Smart Spending Pyramid",
+    "topic": "Basics",
+    "description": "Needs at the base, Savings in the middle, Wants at the top.",
+    "color": "#e11d48",
+    "icon": "🔺"
+  }
+]

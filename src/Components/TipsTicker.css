@@ -1,0 +1,33 @@
+.tips-ticker {
+  background: #f0fdfa;
+  border-bottom: 1px solid #99f6e4;
+  padding: 0.6rem 0;
+  font-size: 0.95rem;
+}
+
+.tips-ticker .container {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.ticker-label {
+  font-weight: 600;
+  color: #0f766e;
+  white-space: nowrap;
+}
+
+.ticker-text {
+  color: #134e4a;
+}
+
+/* Dark mode support */
+[data-theme="dark"] .tips-ticker {
+  background: #134e4a;
+  border-color: #0f766e;
+}
+
+[data-theme="dark"] .ticker-label,
+[data-theme="dark"] .ticker-text {
+  color: #a7f3d0;
+}

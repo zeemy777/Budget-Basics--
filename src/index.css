@@ -1,0 +1,32 @@
+:root {
+  --header-bg: #0f766e;
+  --footer-bg: #134e4a;
+  --bg: #f8fafc;
+  --text: #1e293b;
+}
+
+[data-theme="dark"] {
+  --header-bg: #0f766e;
+  --footer-bg: #0a3d3a;
+  --bg: #0f172a;
+  --text: #e2e8f0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* Focus styles for accessibility */
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid #2dd4bf;
+  outline-offset: 2px;
+}
