@@ -96,7 +96,6 @@ function NeedsVsWants() {
             {sampleItems.map((item) => {
               const userAnswer = answers[item.id];
               const isCorrect = userAnswer === item.correct;
-              const isAnswered = userAnswer !== undefined;
 
               return (
                 <div

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { formatNaira } from '../utils/currency';
 import './Rule503020.css';
 
 function Rule503020() {
@@ -48,14 +49,6 @@ function Rule503020() {
     setIncome('');
     setError('');
     setResults(null);
-  };
-
-  const formatCurrency = (num) => {
-    return new Intl.NumberFormat('en-IN', {
-      style: 'currency',
-      currency: 'INR',
-      maximumFractionDigits: 0,
-    }).format(num);
   };
 
   return (
@@ -121,11 +114,11 @@ function Rule503020() {
 
           <form className="calculator-form" onSubmit={handleCalculate}>
             <div className="input-group">
-              <label htmlFor="income">Monthly Income (₹)</label>
+              <label htmlFor="income">Monthly Income (₦)</label>
               <input
                 type="number"
                 id="income"
-                placeholder="e.g. 12000"
+                placeholder="e.g. 120000"
                 value={income}
                 onChange={(e) => setIncome(e.target.value)}
                 min="0"
@@ -150,13 +143,13 @@ function Rule503020() {
             <div className="results-box">
               <h3>Your Suggested Budget</h3>
               <p className="income-display">
-                Based on monthly income of <strong>{formatCurrency(results.income)}</strong>
+                Based on monthly income of <strong>{formatNaira(results.income)}</strong>
               </p>
 
               <div className="results-grid">
                 <div className="result-card needs-result">
                   <div className="result-label">Needs (50%)</div>
-                  <div className="result-amount">{formatCurrency(results.needs)}</div>
+                  <div className="result-amount">{formatNaira(results.needs)}</div>
                   <div className="progress-bar">
                     <div className="progress-fill needs-fill" style={{ width: '50%' }}></div>
                   </div>
@@ -164,7 +157,7 @@ function Rule503020() {
 
                 <div className="result-card wants-result">
                   <div className="result-label">Wants (30%)</div>
-                  <div className="result-amount">{formatCurrency(results.wants)}</div>
+                  <div className="result-amount">{formatNaira(results.wants)}</div>
                   <div className="progress-bar">
                     <div className="progress-fill wants-fill" style={{ width: '30%' }}></div>
                   </div>
@@ -172,7 +165,7 @@ function Rule503020() {
 
                 <div className="result-card savings-result">
                   <div className="result-label">Savings (20%)</div>
-                  <div className="result-amount">{formatCurrency(results.savings)}</div>
+                  <div className="result-amount">{formatNaira(results.savings)}</div>
                   <div className="progress-bar">
                     <div className="progress-fill savings-fill" style={{ width: '20%' }}></div>
                   </div>

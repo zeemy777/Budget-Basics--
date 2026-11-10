@@ -4,7 +4,27 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>budgetbasics</title>
+    <meta
+      name="description"
+      content="BudgetBasics is a free, Naira-first money guide for Nigerian students — budgeting, saving, and smart spending with calculators, planners, a personal dashboard, and an educational money assistant."
+    />
+    <meta name="theme-color" content="#04100d" />
+    <meta property="og:title" content="BudgetBasics — Money skills for students" />
+    <meta
+      property="og:description"
+      content="Learn budgeting, saving, and smart money habits with simple guides, calculators, and interactive tools. Free, private, and built for Nigerian students."
+    />
+    <meta property="og:type" content="website" />
+    <script>
+      try {
+        if (localStorage.getItem('bb_theme') === 'dark') {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      } catch {
+        /* localStorage can be unavailable in private contexts */
+      }
+    </script>
+    <title>BudgetBasics — Money skills for students</title>
   </head>
   <body>
     <div id="root"></div>

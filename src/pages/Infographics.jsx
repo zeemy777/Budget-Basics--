@@ -34,7 +34,7 @@ const galleryItems = [
     title: 'Saving Challenges',
     topic: 'Savings',
     description:
-      'Fun and realistic saving challenges for students — 30-day no-spend, ₹50 daily save, and the 52-week challenge adapted for small budgets.',
+      'Fun and realistic saving challenges for students — 30-day no-spend, ₦500 daily save, and the 52-week challenge adapted for small budgets.',
     color: '#059669',
     icon: '🎯',
   },
@@ -43,7 +43,7 @@ const galleryItems = [
     title: 'Emergency Fund Basics',
     topic: 'Savings',
     description:
-      'Why every student should build a small emergency fund (even ₹5,000–10,000) and how it prevents debt during unexpected situations.',
+      'Why every student should build a small emergency fund (even ₦50,000–100,000) and how it prevents debt during unexpected situations.',
     color: '#d97706',
     icon: '🛡️',
   },
@@ -54,7 +54,7 @@ const galleryItems = [
     description:
       'A priority pyramid: Needs at the base, Savings in the middle, and Wants at the top. Visual reminder of what comes first.',
     color: '#e11d48',
-    icon: 'ピラミッド',
+    icon: '🔺',
   },
   {
     id: 7,

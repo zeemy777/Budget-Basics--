@@ -18,9 +18,9 @@ const mistakes = [
     title: 'Ignoring Small Expenses',
     icon: '☕',
     scenario:
-      'You spend ₹80–150 daily on snacks, tea, or quick rides. At the end of the month you wonder where your money went.',
+      'You spend ₦1,000–2,000 daily on snacks, transport, or quick data top-ups. At the end of the month you wonder where your money went.',
     whyBad:
-      'Small amounts feel harmless, but they can easily add up to ₹3,000–5,000 per month.',
+      'Small amounts feel harmless, but they can easily add up to ₦30,000–60,000 per month.',
     corrective:
       'Track every expense for one week (even the tiny ones). Seeing the total usually changes behaviour.',
   },

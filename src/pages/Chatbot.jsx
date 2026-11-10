@@ -40,7 +40,7 @@ const knowledgeBase = [
   {
     keywords: ['emergency', 'emergency fund'],
     answer:
-      'An emergency fund is money set aside for unexpected situations (medical, travel, device repair). Even ₹5,000–10,000 can protect you from debt.',
+      'An emergency fund is money set aside for unexpected situations (medical, travel, device repair). Even ₦50,000–100,000 can protect you from debt.',
   },
   {
     keywords: ['budget', 'how to budget', 'make a budget'],

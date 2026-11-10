@@ -1,13 +1,29 @@
 import { Link } from 'react-router-dom';
+import { useAuth } from '../context/auth-context';
 import './Footer.css';
 
 function Footer() {
+  const { user } = useAuth();
+
   return (
     <footer className="footer">
+      <div className="footer-glow" aria-hidden="true"></div>
+
       <div className="container footer-grid">
         <div className="footer-brand">
-          <h3>BudgetBasics</h3>
-          <p>Helping students build better money habits through simple education and interactive tools.</p>
+          <Link to="/" className="footer-logo">
+            <span className="footer-logo-mark" aria-hidden="true">₦</span>
+            <span>BudgetBasics</span>
+          </Link>
+          <p>
+            Naira-first money education for students — simple guides, interactive tools,
+            and a personal plan that stays in your browser.
+          </p>
+          <div className="footer-badges">
+            <span>100% free</span>
+            <span>Naira-first</span>
+            <span>Browser-only data</span>
+          </div>
         </div>
 
         <div className="footer-links">
@@ -22,27 +38,42 @@ function Footer() {
         </div>
 
         <div className="footer-links">
-          <h4>Support</h4>
+          <h4>Account</h4>
           <ul>
-            <li><Link to="/feedback">Feedback</Link></li>
-            <li><Link to="/contact">Contact Us</Link></li>
-            <li><Link to="/about">About Us</Link></li>
+            {user ? (
+              <>
+                <li><Link to="/dashboard">My dashboard</Link></li>
+                <li><Link to="/expense-planner">My expenses</Link></li>
+                <li><Link to="/feedback">Feedback</Link></li>
+                <li><Link to="/contact">Contact Us</Link></li>
+              </>
+            ) : (
+              <>
+                <li><Link to="/signup">Create free account</Link></li>
+                <li><Link to="/login">Log in</Link></li>
+                <li><Link to="/feedback">Feedback</Link></li>
+                <li><Link to="/contact">Contact Us</Link></li>
+              </>
+            )}
           </ul>
         </div>
 
         <div className="footer-disclaimer">
           <h4>Important Note</h4>
           <p>
-            This is an <strong>educational website</strong> only.  
-            It does not provide banking services, real financial advice, or store personal financial data.
+            This is an <strong>educational website</strong> only. It does not provide banking
+            services, connect to your bank, or send financial data to a server. Accounts and plans
+            are stored only in this browser.
           </p>
         </div>
       </div>
 
       <div className="footer-bottom">
         <div className="container">
-          <p>© {new Date().getFullYear()} BudgetBasics • Built for educational purposes</p>
-          <p className="privacy-note">Privacy: No personal or financial data is collected or stored permanently.</p>
+          <p>© {new Date().getFullYear()} BudgetBasics • Naira-first money education</p>
+          <p className="privacy-note">
+            Privacy: account and plan data live in this browser. Clear site data to remove them.
+          </p>
         </div>
       </div>
     </footer>

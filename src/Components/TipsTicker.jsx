@@ -22,9 +22,12 @@ function TipsTicker() {
 
   return (
     <div className="tips-ticker">
-      <div className="container">
-        <span className="ticker-label">Tip of the moment:</span>
-        <span className="ticker-text">{tips[index]}</span>
+      <div className="container tips-ticker-inner">
+        <span className="ticker-label">
+          <span className="ticker-dot" aria-hidden="true"></span>
+          Money tip
+        </span>
+        <span className="ticker-text" key={index} aria-live="polite">{tips[index]}</span>
       </div>
     </div>
   );

@@ -1,13 +1,26 @@
 import { useState } from 'react';
+import { useAuth } from '../context/auth-context';
+import { useUserState } from '../hooks/useUserState';
+import { formatNaira } from '../utils/currency';
 import './SavingsGoals.css';
 
 function SavingsGoals() {
-  const [goalName, setGoalName] = useState('');
-  const [targetAmount, setTargetAmount] = useState('');
-  const [currentSavings, setCurrentSavings] = useState('');
-  const [monthlyContribution, setMonthlyContribution] = useState('');
+  const { user } = useAuth();
+  const [savedGoal, setSavedGoal] = useUserState('savingsGoal', null, user?.id);
+  const initialGoal = savedGoal && typeof savedGoal === 'object' ? savedGoal : null;
+
+  const [goalName, setGoalName] = useState(initialGoal?.goalName ?? '');
+  const [targetAmount, setTargetAmount] = useState(
+    initialGoal?.target ? String(initialGoal.target) : ''
+  );
+  const [currentSavings, setCurrentSavings] = useState(
+    initialGoal?.current ? String(initialGoal.current) : ''
+  );
+  const [monthlyContribution, setMonthlyContribution] = useState(
+    initialGoal?.monthly ? String(initialGoal.monthly) : ''
+  );
   const [error, setError] = useState('');
-  const [result, setResult] = useState(null);
+  const [result, setResult] = useState(initialGoal);
 
   const handleCalculate = (e) => {
     e.preventDefault();
@@ -58,8 +71,7 @@ function SavingsGoals() {
     const monthsNeeded = Math.ceil(remaining / monthly);
     const progressPercent = Math.min((current / target) * 100, 100);
 
-    setError('');
-    setResult({
+    const nextResult = {
       goalName: goalName.trim(),
       target,
       current,
@@ -67,7 +79,11 @@ function SavingsGoals() {
       remaining,
       monthsNeeded,
       progressPercent,
-    });
+    };
+
+    setError('');
+    setResult(nextResult);
+    setSavedGoal(nextResult);
   };
 
   const handleReset = () => {
@@ -77,14 +93,7 @@ function SavingsGoals() {
     setMonthlyContribution('');
     setError('');
     setResult(null);
-  };
-
-  const formatCurrency = (num) => {
-    return new Intl.NumberFormat('en-IN', {
-      style: 'currency',
-      currency: 'INR',
-      maximumFractionDigits: 0,
-    }).format(num);
+    setSavedGoal(null);
   };
 
   // Encouraging tips based on progress
@@ -105,6 +114,7 @@ function SavingsGoals() {
           <h1>Savings Goals</h1>
           <p className="subtitle">
             Set a clear savings goal and see how long it will take to achieve it with consistent monthly contributions.
+            {user ? ' Your latest goal is saved to your dashboard.' : ' Log in to keep a goal between visits.'}
           </p>
         </div>
 
@@ -127,11 +137,11 @@ function SavingsGoals() {
 
               <div className="form-row">
                 <div className="form-group">
-                  <label htmlFor="targetAmount">Target Amount (₹)</label>
+                  <label htmlFor="targetAmount">Target Amount (₦)</label>
                   <input
                     type="number"
                     id="targetAmount"
-                    placeholder="e.g. 50000"
+                    placeholder="e.g. 500000"
                     value={targetAmount}
                     onChange={(e) => setTargetAmount(e.target.value)}
                     min="0"
@@ -139,11 +149,11 @@ function SavingsGoals() {
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="currentSavings">Current Savings (₹)</label>
+                  <label htmlFor="currentSavings">Current Savings (₦)</label>
                   <input
                     type="number"
                     id="currentSavings"
-                    placeholder="e.g. 8000"
+                    placeholder="e.g. 75000"
                     value={currentSavings}
                     onChange={(e) => setCurrentSavings(e.target.value)}
                     min="0"
@@ -152,11 +162,11 @@ function SavingsGoals() {
               </div>
 
               <div className="form-group">
-                <label htmlFor="monthlyContribution">Monthly Contribution (₹)</label>
+                <label htmlFor="monthlyContribution">Monthly Contribution (₦)</label>
                 <input
                   type="number"
                   id="monthlyContribution"
-                  placeholder="e.g. 2000"
+                  placeholder="e.g. 25000"
                   value={monthlyContribution}
                   onChange={(e) => setMonthlyContribution(e.target.value)}
                   min="0"
@@ -196,8 +206,8 @@ function SavingsGoals() {
                   ></div>
                 </div>
                 <div className="progress-labels">
-                  <span>{formatCurrency(result.current)} saved</span>
-                  <span>{formatCurrency(result.target)} goal</span>
+                  <span>{formatNaira(result.current)} saved</span>
+                  <span>{formatNaira(result.target)} goal</span>
                 </div>
               </div>
 
@@ -205,12 +215,12 @@ function SavingsGoals() {
               <div className="stats-grid">
                 <div className="stat-box">
                   <div className="stat-label">Remaining</div>
-                  <div className="stat-value remaining">{formatCurrency(result.remaining)}</div>
+                  <div className="stat-value remaining">{formatNaira(result.remaining)}</div>
                 </div>
 
                 <div className="stat-box">
                   <div className="stat-label">Monthly Saving</div>
-                  <div className="stat-value">{formatCurrency(result.monthly)}</div>
+                  <div className="stat-value">{formatNaira(result.monthly)}</div>
                 </div>
 
                 <div className="stat-box highlight">
@@ -237,6 +247,7 @@ function SavingsGoals() {
             This calculator gives an <strong>estimate for learning purposes only</strong>. 
             Real savings can grow faster with interest or slower if you miss contributions. 
             The most important habit is to save consistently every month.
+            {user && ' Your saved goal stays in this browser and is never sent to a server.'}
           </p>
         </div>
 

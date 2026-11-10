@@ -1,4 +1,8 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../context/auth-context';
+import { useUserState } from '../hooks/useUserState';
+import { formatNaira } from '../utils/currency';
 import './ExpensePlanner.css';
 
 const CATEGORIES = [
@@ -12,10 +16,11 @@ const CATEGORIES = [
 ];
 
 // Sample starting balance for demonstration
-const SAMPLE_BALANCE = 12000;
+const SAMPLE_BALANCE = 120000;
 
 function ExpensePlanner() {
-  const [expenses, setExpenses] = useState([]);
+  const { user } = useAuth();
+  const [expenses, setExpenses] = useUserState('expenses', [], user?.id);
   const [form, setForm] = useState({
     date: '',
     category: 'Food',
@@ -101,14 +106,6 @@ function ExpensePlanner() {
   const totalExpenses = expenses.reduce((sum, exp) => sum + exp.amount, 0);
   const remaining = SAMPLE_BALANCE - totalExpenses;
 
-  const formatCurrency = (num) => {
-    return new Intl.NumberFormat('en-IN', {
-      style: 'currency',
-      currency: 'INR',
-      maximumFractionDigits: 0,
-    }).format(num);
-  };
-
   return (
     <div className="expense-planner">
       <div className="container">
@@ -116,8 +113,10 @@ function ExpensePlanner() {
         <div className="page-header">
           <h1>Expense Planner</h1>
           <p className="subtitle">
-            Add sample expenses and see how they affect your monthly balance.
-            All data is temporary and only stays during this session.
+            Add expenses and see how they affect your monthly balance.{' '}
+            {user
+              ? 'Everything you add is saved to your dashboard in this browser.'
+              : 'Log in to keep your expenses saved between visits.'}
           </p>
         </div>
 
@@ -125,15 +124,15 @@ function ExpensePlanner() {
         <div className="summary-cards">
           <div className="summary-card balance">
             <div className="summary-label">Sample Starting Balance</div>
-            <div className="summary-value">{formatCurrency(SAMPLE_BALANCE)}</div>
+            <div className="summary-value">{formatNaira(SAMPLE_BALANCE)}</div>
           </div>
           <div className="summary-card spent">
             <div className="summary-label">Total Expenses</div>
-            <div className="summary-value">{formatCurrency(totalExpenses)}</div>
+            <div className="summary-value">{formatNaira(totalExpenses)}</div>
           </div>
           <div className={`summary-card remaining ${remaining < 0 ? 'negative' : ''}`}>
             <div className="summary-label">Remaining Balance</div>
-            <div className="summary-value">{formatCurrency(remaining)}</div>
+            <div className="summary-value">{formatNaira(remaining)}</div>
           </div>
         </div>
 
@@ -185,12 +184,12 @@ function ExpensePlanner() {
               </div>
 
               <div className="form-group">
-                <label htmlFor="amount">Amount (₹)</label>
+                <label htmlFor="amount">Amount (₦)</label>
                 <input
                   type="number"
                   id="amount"
                   name="amount"
-                  placeholder="e.g. 250"
+                  placeholder="e.g. 2500"
                   value={form.amount}
                   onChange={handleChange}
                   min="0"
@@ -244,7 +243,7 @@ function ExpensePlanner() {
                         </span>
                       </td>
                       <td>{exp.description}</td>
-                      <td className="amount-cell">{formatCurrency(exp.amount)}</td>
+                      <td className="amount-cell">{formatNaira(exp.amount)}</td>
                       <td className="actions-cell">
                         <button
                           className="edit-btn"
@@ -269,7 +268,7 @@ function ExpensePlanner() {
                     <td colSpan="3" className="total-label">
                       Total Expenses
                     </td>
-                    <td className="total-amount">{formatCurrency(totalExpenses)}</td>
+                    <td className="total-amount">{formatNaira(totalExpenses)}</td>
                     <td></td>
                   </tr>
                 </tfoot>
@@ -282,9 +281,16 @@ function ExpensePlanner() {
         <div className="educational-note">
           <h3>Educational Note</h3>
           <p>
-            This is a <strong>demonstration only</strong>. Expenses are stored temporarily in your browser 
-            and will disappear when you refresh the page. No data is sent to any server.
+            This is a <strong>demonstration only</strong>.{' '}
+            {user
+              ? 'Your expenses are stored in this browser and stay here until you delete them or clear site data. No data is sent to any server.'
+              : 'Expenses last only for this visit. Create a free account to save them in this browser and see them on your dashboard.'}
           </p>
+          {!user && (
+            <Link to="/signup" className="planner-save-link">
+              Create a free account to save your expenses →
+            </Link>
+          )}
         </div>
 
         {/* Bottom Tip */}

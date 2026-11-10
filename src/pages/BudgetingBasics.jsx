@@ -92,7 +92,7 @@ function BudgetingBasics() {
         <section className="sample-budget-section">
           <h2>Sample Student Monthly Budget</h2>
           <p className="section-desc">
-            Here’s a realistic example for a student with a monthly income of ₹12,000.
+            Here’s a realistic example for a student with a monthly income of ₦120,000.
           </p>
 
           <div className="table-wrapper">
@@ -101,7 +101,7 @@ function BudgetingBasics() {
                 <tr>
                   <th>Category</th>
                   <th>Type</th>
-                  <th>Amount (₹)</th>
+                  <th>Amount (₦)</th>
                   <th>% of Income</th>
                 </tr>
               </thead>
@@ -109,54 +109,54 @@ function BudgetingBasics() {
                 <tr>
                   <td>Hostel / Rent</td>
                   <td><span className="badge fixed">Fixed</span></td>
-                  <td>4,000</td>
+                  <td>40,000</td>
                   <td>33%</td>
                 </tr>
                 <tr>
                   <td>Food & Mess</td>
                   <td><span className="badge need">Need</span></td>
-                  <td>3,000</td>
+                  <td>30,000</td>
                   <td>25%</td>
                 </tr>
                 <tr>
                   <td>Transport</td>
                   <td><span className="badge need">Need</span></td>
-                  <td>800</td>
+                  <td>8,000</td>
                   <td>7%</td>
                 </tr>
                 <tr>
                   <td>Mobile & Internet</td>
                   <td><span className="badge fixed">Fixed</span></td>
-                  <td>500</td>
+                  <td>5,000</td>
                   <td>4%</td>
                 </tr>
                 <tr>
                   <td>Study Materials</td>
                   <td><span className="badge need">Need</span></td>
-                  <td>700</td>
+                  <td>7,000</td>
                   <td>6%</td>
                 </tr>
                 <tr>
                   <td>Entertainment</td>
                   <td><span className="badge want">Want</span></td>
-                  <td>1,000</td>
+                  <td>10,000</td>
                   <td>8%</td>
                 </tr>
                 <tr>
                   <td>Shopping / Personal</td>
                   <td><span className="badge want">Want</span></td>
-                  <td>800</td>
+                  <td>8,000</td>
                   <td>7%</td>
                 </tr>
                 <tr className="savings-row">
                   <td><strong>Savings</strong></td>
                   <td><span className="badge savings">Savings</span></td>
-                  <td><strong>1,200</strong></td>
+                  <td><strong>12,000</strong></td>
                   <td><strong>10%</strong></td>
                 </tr>
                 <tr className="total-row">
                   <td colSpan="2"><strong>Total</strong></td>
-                  <td><strong>12,000</strong></td>
+                  <td><strong>120,000</strong></td>
                   <td><strong>100%</strong></td>
                 </tr>
               </tbody>

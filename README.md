@@ -1,21 +1,53 @@
-HEAD
-# React + Vite
+# BudgetBasics
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A Naira-first, student-friendly web app for learning budgeting, saving, and smart money habits through clear guides, calculators, a personal dashboard, and interactive tools. Free, private, and educational.
 
-Currently, two official plugins are available:
+## Pages
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Home — overview, interactive previews, and a dashboard teaser
+- Budgeting Basics — core concepts and a sample student budget
+- Needs vs Wants — comparison, classifier quiz, and buying decision guide
+- 50-30-20 Rule — explanation cards and an income split calculator
+- Savings Goals — goal planner with progress and timeline estimates
+- Expense Planner — expense tracking with a running balance
+- Money Mistakes — expandable common mistakes and fixes
+- Infographics — visual summaries with category filters
+- AI Chatbot — rule-based answers to common money questions
+- Dashboard (signed in) — monthly plan editor, Budget Health Score, and saved activity
+- Login / Create account — optional local demo accounts
+- About, Feedback, Contact, Sitemap, and a custom 404 page
 
-## React Compiler
+## Tech stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+React 19, Vite 8, React Router 7, and plain CSS with a shared design-token system and light/dark themes.
 
-## Expanding the ESLint configuration
+## Accounts and data
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Accounts are a browser-only demo: no backend or server is involved. When you create an account, a salted SHA-256 hash of your password is stored in `localStorage` (never the plaintext), along with your name, email, and per-account budgeting data.
 
-# Budget-Basics--
-A web application designed to help users track expenses, manage personal finances, and build healthy spending habits.
->>>>>>> 05fbf32456600d315cde93f02328fed8bedfe4d6
+- Your plan, expenses, and savings goal are saved per account in this browser.
+- The dashboard calculates a Budget Health Score from your needs, wants, and savings split.
+- Clearing site data or using another browser/device removes the account and its data.
+
+## Getting started
+
+```bash
+npm install
+npm run dev
+```
+
+Open the URL printed by Vite (usually http://localhost:5173).
+
+## Scripts
+
+```bash
+npm run dev      # start the development server
+npm run build    # production build to dist/
+npm run preview  # preview the production build
+npm run lint     # run ESLint
+```
+
+## Notes
+
+All tools run entirely in the browser. Forms use client-side validation only, and nothing is sent to a server. Amounts are formatted in Nigerian Naira (NGN).
+

@@ -120,7 +120,7 @@ function Contact() {
               <span className="info-icon">📞</span>
               <div>
                 <strong>Phone</strong>
-                <p>+91 98765 43210</p>
+                <p>+234 803 456 7890</p>
               </div>
             </div>
 
@@ -128,7 +128,7 @@ function Contact() {
               <span className="info-icon">📍</span>
               <div>
                 <strong>Location</strong>
-                <p>Educational Project – India</p>
+                <p>Educational Project – Lagos, Nigeria</p>
               </div>
             </div>
 

@@ -52,6 +52,11 @@ function About() {
               <h3>AI Chatbot Assistant</h3>
               <p>Quick answers to common student money questions (educational only).</p>
             </div>
+            <div className="feature-item">
+              <span className="feature-icon">📈</span>
+              <h3>Personal Dashboard</h3>
+              <p>A free account with a Budget Health Score, saved expenses, and goal tracking — all stored in your browser.</p>
+            </div>
           </div>
         </section>
 
@@ -62,7 +67,8 @@ function About() {
             <p>
               BudgetBasics is an <strong>educational website</strong> only. 
               It does <strong>not</strong> provide banking services, real financial transactions, 
-              investment advice, or permanently store personal financial records.
+              or investment advice. Account details, plans, expenses, and goals are demo data
+              stored only in your browser — they are never sent to a server.
             </p>
             <p>
               All calculators and tools are for learning purposes. Please use them to understand 

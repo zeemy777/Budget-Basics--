@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom';
+import { useAuth } from '../context/auth-context';
 import './Sitemap.css';
 
 function Sitemap() {
+  const { user } = useAuth();
+
   return (
     <div className="sitemap-page">
       <div className="container">
@@ -9,11 +12,31 @@ function Sitemap() {
         <div className="page-header">
           <h1>Sitemap</h1>
           <p className="subtitle">
-            Complete overview of all pages and sections available on BudgetBasics.
+            Complete overview of every page, tool, and account feature on BudgetBasics.
           </p>
         </div>
 
         <div className="sitemap-grid">
+          {/* Account */}
+          <div className="sitemap-card sitemap-account">
+            <h2>Your Account</h2>
+            <ul>
+              {user ? (
+                <>
+                  <li><Link to="/dashboard">Personal Dashboard</Link></li>
+                  <li><Link to="/expense-planner">Saved Expenses</Link></li>
+                  <li><Link to="/savings-goals">Saved Savings Goal</Link></li>
+                </>
+              ) : (
+                <>
+                  <li><Link to="/signup">Create Free Account</Link></li>
+                  <li><Link to="/login">Log In</Link></li>
+                  <li><Link to="/dashboard">Dashboard (members)</Link></li>
+                </>
+              )}
+            </ul>
+          </div>
+
           {/* Main Sections */}
           <div className="sitemap-card">
             <h2>Main Sections</h2>
@@ -47,7 +70,7 @@ function Sitemap() {
             <ul>
               <li><Link to="/50-30-20">50-30-20 Calculator</Link></li>
               <li><Link to="/savings-goals">Savings Goal Planner</Link></li>
-              <li><Link to="/expense-planner">Expense Tracker (Demo)</Link></li>
+              <li><Link to="/expense-planner">Expense Tracker</Link></li>
               <li><Link to="/needs-vs-wants">Needs vs Wants Classifier</Link></li>
               <li><Link to="/chatbot">AI Chatbot</Link></li>
             </ul>
@@ -68,8 +91,9 @@ function Sitemap() {
         {/* Note */}
         <div className="sitemap-note">
           <p>
-            <strong>Note:</strong> BudgetBasics is an educational website. 
-            All tools and calculators are for learning purposes only and do not provide real financial services.
+            <strong>Note:</strong> BudgetBasics is an educational website. Accounts, plans, and
+            expenses are demo data stored only in your browser — they are never sent to a server
+            and do not provide real financial services.
           </p>
         </div>
       </div>
