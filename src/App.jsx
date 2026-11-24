@@ -1,6 +1,7 @@
 import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import AuthProvider from './context/AuthProvider';
+import ToastProvider from './context/ToastProvider';
 import RequireAuth from './Components/RequireAuth';
 import Layout from './Components/Layout';
 import Home from './pages/Home';
@@ -12,6 +13,8 @@ import ExpensePlanner from './pages/ExpensePlanner';
 import MoneyMistakes from './pages/MoneyMistakes';
 import Infographics from './pages/Infographics';
 import Chatbot from './pages/Chatbot';
+import MoneyIq from './pages/MoneyIq';
+import CaseStudy from './pages/CaseStudy';
 import About from './pages/About';
 import Feedback from './pages/Feedback';
 import Contact from './pages/Contact';
@@ -23,8 +26,9 @@ import NotFound from './pages/NotFound';
 function App() {
     return (
         <AuthProvider>
-            <BrowserRouter>
-                <Routes>
+            <ToastProvider>
+                <BrowserRouter>
+                    <Routes>
                     <Route path="/" element={<Layout />}>
                         <Route index element={<Home />} />
                         <Route path="budgeting-basics" element={<BudgetingBasics />} />
@@ -35,6 +39,8 @@ function App() {
                         <Route path="money-mistakes" element={<MoneyMistakes />} />
                         <Route path="infographics" element={<Infographics />} />
                         <Route path="chatbot" element={<Chatbot />} />
+                        <Route path="money-iq" element={<MoneyIq />} />
+                        <Route path="case-study" element={<CaseStudy />} />
                         <Route path="about" element={<About />} />
                         <Route path="feedback" element={<Feedback />} />
                         <Route path="contact" element={<Contact />} />
@@ -52,7 +58,8 @@ function App() {
                         <Route path="*" element={<NotFound />} />
                     </Route>
                 </Routes>
-            </BrowserRouter>
+                </BrowserRouter>
+            </ToastProvider>
         </AuthProvider>
     );
 }

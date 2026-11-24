@@ -1,0 +1,173 @@
+.donut-wrap {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  flex-wrap: wrap;
+}
+
+.donut-visual {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.donut-visual svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.donut-track {
+  stroke: var(--surface-3);
+}
+
+.donut-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1rem;
+  text-align: center;
+  pointer-events: none;
+}
+
+.donut-center small {
+  color: var(--text-muted);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.donut-center strong {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  letter-spacing: -0.02em;
+}
+
+.donut-legend {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.42rem;
+  flex: 1;
+  min-width: 170px;
+}
+
+.donut-legend li {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+}
+
+.legend-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 3px;
+}
+
+.legend-name {
+  color: var(--text-muted);
+}
+
+.legend-share {
+  font-weight: 700;
+  color: var(--text);
+}
+
+.legend-amount {
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+}
+
+.month-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.7rem;
+  height: 190px;
+  padding-top: 0.4rem;
+}
+
+.month-bar {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  height: 100%;
+  min-width: 0;
+}
+
+.month-bar-track {
+  flex: 1;
+  width: 100%;
+  max-width: 46px;
+  display: flex;
+  align-items: flex-end;
+  border-radius: 10px;
+  background: linear-gradient(180deg, transparent, var(--surface-3));
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.month-bar-fill {
+  width: 100%;
+  border-radius: 9px 9px 4px 4px;
+  background: linear-gradient(180deg, var(--mint-300), var(--mint-600));
+  box-shadow: 0 6px 18px -8px rgba(16, 185, 129, 0.7);
+  animation: bb-bar-grow 0.6s var(--ease) both;
+  transform-origin: bottom;
+}
+
+.month-bar-fill.empty {
+  background: var(--border);
+  box-shadow: none;
+}
+
+.month-bar-value {
+  font-size: 0.64rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.month-bar-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+@keyframes bb-bar-grow {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@media (max-width: 560px) {
+  .donut-wrap {
+    justify-content: center;
+  }
+
+  .month-bars {
+    height: 160px;
+    gap: 0.45rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .month-bar-fill {
+    animation: none;
+  }
+}

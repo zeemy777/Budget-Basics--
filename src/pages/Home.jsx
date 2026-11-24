@@ -122,7 +122,7 @@ function Home() {
               <span>Learning guides</span>
             </div>
             <div className="stat">
-              <strong>6</strong>
+              <strong>7</strong>
               <span>Interactive tools</span>
             </div>
             <div className="stat">
@@ -220,6 +220,18 @@ function Home() {
               <span className="feature-link">Track expenses <span aria-hidden="true">→</span></span>
             </Link>
           </div>
+
+          <Link to="/money-iq" className="quiz-teaser">
+            <span className="quiz-teaser-icon" aria-hidden="true">🧠</span>
+            <div className="quiz-teaser-copy">
+              <span className="quiz-teaser-eyebrow">New · Money IQ test</span>
+              <h3>Six questions. Two minutes. One bragging right.</h3>
+              <p>Test your instincts on needs, savings and interest — then get a study plan.</p>
+            </div>
+            <span className="quiz-teaser-cta">
+              Take the quiz <span aria-hidden="true">→</span>
+            </span>
+          </Link>
         </div>
       </section>
 

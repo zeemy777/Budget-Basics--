@@ -32,7 +32,9 @@ function Footer() {
             <li><Link to="/">Home</Link></li>
             <li><Link to="/budgeting-basics">Budgeting Basics</Link></li>
             <li><Link to="/savings-goals">Savings Goals</Link></li>
+            <li><Link to="/money-iq">Money IQ Test</Link></li>
             <li><Link to="/chatbot">AI Chatbot</Link></li>
+            <li><Link to="/case-study">Project case study</Link></li>
             <li><Link to="/sitemap">Sitemap</Link></li>
           </ul>
         </div>

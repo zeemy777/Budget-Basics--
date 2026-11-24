@@ -49,6 +49,7 @@ function Sitemap() {
               <li><Link to="/expense-planner">Expense Planner</Link></li>
               <li><Link to="/money-mistakes">Money Mistakes</Link></li>
               <li><Link to="/infographics">Infographics & Gallery</Link></li>
+              <li><Link to="/money-iq">Money IQ Test</Link></li>
               <li><Link to="/chatbot">AI Chatbot Assistant</Link></li>
             </ul>
           </div>
@@ -58,6 +59,7 @@ function Sitemap() {
             <h2>Support & Information</h2>
             <ul>
               <li><Link to="/about">About Us</Link></li>
+              <li><Link to="/case-study">Project Case Study</Link></li>
               <li><Link to="/feedback">Feedback</Link></li>
               <li><Link to="/contact">Contact Us</Link></li>
               <li><Link to="/sitemap">Sitemap</Link></li>
@@ -72,6 +74,7 @@ function Sitemap() {
               <li><Link to="/savings-goals">Savings Goal Planner</Link></li>
               <li><Link to="/expense-planner">Expense Tracker</Link></li>
               <li><Link to="/needs-vs-wants">Needs vs Wants Classifier</Link></li>
+              <li><Link to="/money-iq">Money IQ Quiz</Link></li>
               <li><Link to="/chatbot">AI Chatbot</Link></li>
             </ul>
           </div>

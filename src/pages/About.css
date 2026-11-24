@@ -206,3 +206,16 @@
   border-color: #0f766e;
   color: #a7f3d0;
 }
+.project-info-link a {
+  color: #0f766e;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.project-info-link a:hover {
+  text-decoration: underline;
+}
+
+[data-theme="dark"] .project-info-link a {
+  color: #2dd4bf;
+}

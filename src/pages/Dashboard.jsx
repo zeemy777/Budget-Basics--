@@ -1,6 +1,9 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/auth-context';
+import { useToast } from '../context/toast-context';
 import { readUserState, useUserState } from '../hooks/useUserState';
+import { useCountUp } from '../hooks/useCountUp';
 import { formatNaira } from '../utils/currency';
 import {
   DEFAULT_PLAN,
@@ -11,17 +14,70 @@ import {
   getScoreBand,
   getScoreBreakdown,
 } from '../utils/budgetScore';
+import { BADGES, evaluateBadges } from '../utils/badges';
+import { buildDemoData } from '../utils/demoData';
+import { currentStreak, dateKey } from '../utils/streak';
+import { getMonthlyTotals, getSpendingInsights } from '../utils/insights';
+import CategoryDonut from '../Components/charts/CategoryDonut';
+import MonthBars from '../Components/charts/MonthBars';
+import OnboardingWizard from '../Components/dashboard/OnboardingWizard';
+import StreakCard from '../Components/dashboard/StreakCard';
+import BadgesCard from '../Components/dashboard/BadgesCard';
+import WhatsIfCard from '../Components/dashboard/WhatsIfCard';
+import DataToolsCard from '../Components/dashboard/DataToolsCard';
+import '../Components/dashboard/dashboard-extras.css';
 import './Dashboard.css';
 
 function clamp(value, min, max) {
   return Math.min(max, Math.max(min, value));
 }
 
+function normalizeExpenses(input) {
+  if (!Array.isArray(input)) return [];
+  return input
+    .slice(0, 500)
+    .map((item, index) => {
+      if (!item || typeof item !== 'object') return null;
+      const amount = Number(item.amount);
+      if (!Number.isFinite(amount) || amount <= 0) return null;
+      return {
+        id: item.id ?? Date.now() + index,
+        date: typeof item.date === 'string' && item.date ? item.date : dateKey(new Date()),
+        category: typeof item.category === 'string' && item.category ? item.category : 'Miscellaneous',
+        description: String(item.description || 'Expense').slice(0, 120),
+        amount,
+      };
+    })
+    .filter(Boolean);
+}
+
+function normalizeGoal(input) {
+  if (!input || typeof input !== 'object') return null;
+  const target = Number(input.target) || 0;
+  const current = Math.max(0, Number(input.current) || 0);
+  if (target <= 0) return null;
+  const monthly = Math.max(0, Number(input.monthly) || 0);
+  const remaining = Math.max(0, target - current);
+  return {
+    goalName: String(input.goalName || 'Savings goal').slice(0, 60),
+    target,
+    current,
+    monthly,
+    remaining,
+    monthsNeeded: monthly > 0 ? Math.ceil(remaining / monthly) : 0,
+    progressPercent: Math.min(100, (current / target) * 100),
+  };
+}
+
 function Dashboard() {
   const { user } = useAuth();
+  const { notify } = useToast();
+
   const [plan, setPlan] = useUserState('plan', DEFAULT_PLAN, user.id);
-  const expenses = readUserState('expenses', [], user.id);
-  const savedGoal = readUserState('savingsGoal', null, user.id);
+  const [expenses, setExpenses] = useUserState('expenses', [], user.id);
+  const [savedGoal, setSavedGoal] = useUserState('savingsGoal', null, user.id);
+  const [streak, setStreak] = useUserState('streak', { dates: [], best: 0 }, user.id);
+  const [onboarding, setOnboarding] = useUserState('onboarding', { done: false }, user.id);
 
   const income = Math.max(0, Number(plan?.income) || 0);
   const needs = clamp(Number(plan?.needs) || 0, 0, 100);
@@ -33,6 +89,7 @@ function Dashboard() {
   const savingsAmount = (income * savings) / 100;
 
   const score = calculateHealthScore({ needs, wants, savings });
+  const animatedScore = useCountUp(score);
   const band = getScoreBand(score);
   const breakdown = getScoreBreakdown({ needs, wants, savings });
   const nextAction = getNextAction({ needs, wants, savings });
@@ -44,7 +101,49 @@ function Dashboard() {
   const totalExpenses = expenseList.reduce((sum, item) => sum + (Number(item.amount) || 0), 0);
   const spentShare = income > 0 ? Math.min(100, (totalExpenses / income) * 100) : 0;
 
-  const goal = savedGoal && typeof savedGoal === 'object' ? savedGoal : null;
+  const goal = normalizeGoal(savedGoal);
+  const streakDates = Array.isArray(streak?.dates) ? streak.dates : [];
+  const streakBest = Math.max(0, Number(streak?.best) || 0);
+  const streakCount = currentStreak(streakDates);
+
+  const quizBest = Number(readUserState('moneyIq', null, user.id)?.best) || 0;
+  const earnedMap = readUserState('badges', {}, user.id);
+  const badges = evaluateBadges(
+    { expenseCount: expenseList.length, goal, score, streak: streakCount, quizBest },
+    earnedMap
+  );
+
+  useEffect(() => {
+    const stored = readUserState('badges', {}, user.id);
+    const next = { ...stored };
+    const unlocked = [];
+
+    for (const badge of BADGES) {
+      if (
+        !next[badge.id] &&
+        badge.check({ expenseCount: expenseList.length, goal, score, streak: streakCount, quizBest })
+      ) {
+        next[badge.id] = new Date().toISOString();
+        unlocked.push(badge.name);
+      }
+    }
+
+    if (unlocked.length === 0) return;
+    try {
+      localStorage.setItem(`bb_badges_${user.id}`, JSON.stringify(next));
+    } catch {
+      // Storage can be unavailable; badges simply stay session-based.
+    }
+    notify(
+      unlocked.length === 1
+        ? `Badge unlocked: ${unlocked[0]}.`
+        : `Badges unlocked: ${unlocked.join(', ')}.`,
+      'success'
+    );
+  }, [user.id, expenseList.length, goal, score, streakCount, quizBest, notify]);
+
+  const insights = getSpendingInsights(expenseList);
+  const monthly = getMonthlyTotals(expenseList, 6);
 
   const hour = new Date().getHours();
   const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
@@ -69,6 +168,116 @@ function Dashboard() {
 
   const applyPreset = (preset) => {
     setPlan((current) => ({ ...current, needs: preset.needs, wants: preset.wants }));
+  };
+
+  const handleCheckIn = () => {
+    const today = dateKey(new Date());
+    if (streakDates.includes(today)) {
+      notify('You already checked in today.', 'info');
+      return;
+    }
+
+    const nextDates = [...streakDates, today];
+    const nextCount = currentStreak(nextDates);
+    setStreak({ dates: nextDates, best: Math.max(streakBest, nextCount) });
+    notify(
+      nextCount >= 7
+        ? `🔥 ${nextCount}-day streak. That is a real habit now.`
+        : 'Streak extended. Keep it going!',
+      'success'
+    );
+  };
+
+  const finishOnboarding = (setup) => {
+    setPlan({ income: setup.income, needs: setup.needs, wants: setup.wants });
+    if (setup.goal) setSavedGoal(setup.goal);
+    setOnboarding({ done: true, style: setup.style });
+    notify('Your plan is ready. Fine-tune it anytime.', 'success');
+  };
+
+  const skipOnboarding = () => {
+    setOnboarding({ done: true, skipped: true });
+    notify('You can run setup later from Backup & explore.', 'info');
+  };
+
+  const handleExport = () => {
+    const payload = {
+      app: 'BudgetBasics',
+      version: 1,
+      exportedAt: new Date().toISOString(),
+      account: { name: user.name, email: user.email },
+      data: {
+        plan,
+        expenses: expenseList,
+        savingsGoal: goal,
+        streak: { dates: streakDates, best: streakBest },
+        onboarding,
+        badges: readUserState('badges', {}, user.id),
+      },
+    };
+
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `budgetbasics-backup-${dateKey(new Date())}.json`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+    notify('Backup downloaded. Keep it somewhere safe.', 'success');
+  };
+
+  const handleImport = (data) => {
+    const nextNeeds = clamp(Number(data?.plan?.needs) || 0, 0, 100);
+    const nextWants = clamp(Number(data?.plan?.wants) || 0, 0, 100 - nextNeeds);
+    const nextIncome = clamp(Number(data?.plan?.income) || 0, 0, 100000000);
+
+    setPlan({ income: nextIncome, needs: nextNeeds, wants: nextWants });
+    setExpenses(normalizeExpenses(data?.expenses));
+    setSavedGoal(normalizeGoal(data?.savingsGoal ?? data?.goal));
+    setStreak({
+      dates: Array.isArray(data?.streak?.dates)
+        ? data.streak.dates.filter((entry) => typeof entry === 'string').slice(-400)
+        : [],
+      best: Math.max(0, Number(data?.streak?.best) || 0),
+    });
+    setOnboarding({ done: true });
+
+    try {
+      localStorage.setItem(
+        `bb_badges_${user.id}`,
+        JSON.stringify(data?.badges && typeof data.badges === 'object' ? data.badges : {})
+      );
+    } catch {
+      // Ignore storage failures on import.
+    }
+
+    notify('Backup restored into this account.', 'success');
+  };
+
+  const handleDemo = () => {
+    const demo = buildDemoData();
+    setPlan(demo.plan);
+    setExpenses(demo.expenses);
+    setSavedGoal(demo.goal);
+    setStreak(demo.streak);
+    setOnboarding(demo.onboarding);
+    notify('Demo data loaded. Explore away!', 'success');
+  };
+
+  const handleReset = () => {
+    setPlan({ ...DEFAULT_PLAN });
+    setExpenses([]);
+    setSavedGoal(null);
+    setStreak({ dates: [], best: 0 });
+    setOnboarding({ done: true });
+    try {
+      localStorage.removeItem(`bb_badges_${user.id}`);
+    } catch {
+      // Ignore storage failures on reset.
+    }
+    notify('This account is back to a clean slate.', 'success');
   };
 
   return (
@@ -223,7 +432,7 @@ function Dashboard() {
                 />
               </svg>
               <div className="score-ring-number">
-                <strong>{score}</strong>
+                <strong>{animatedScore}</strong>
                 <span>of 100</span>
               </div>
             </div>
@@ -262,6 +471,103 @@ function Dashboard() {
               </div>
             </div>
           </aside>
+        </div>
+
+        <section className="dash-insights">
+          <div className="dash-section-head">
+            <div>
+              <span className="dash-card-eyebrow">Spending insights</span>
+              <h2>Where your money goes</h2>
+            </div>
+            <Link to="/expense-planner" className="dash-section-link">Open planner →</Link>
+          </div>
+
+          {expenseList.length > 0 ? (
+            <div className="insight-grid">
+              <article className="dash-card chart-card">
+                <div className="chart-head">
+                  <h3>By category</h3>
+                  <span className="activity-tag">{insights.count} tracked</span>
+                </div>
+                <CategoryDonut items={insights.categories} total={insights.total} centerLabel="Spent" />
+              </article>
+
+              <article className="dash-card chart-card">
+                <div className="chart-head">
+                  <h3>Last 6 months</h3>
+                  <span className="activity-tag">{formatNaira(insights.total)}</span>
+                </div>
+                <MonthBars data={monthly} />
+                <ul className="insight-notes">
+                  {insights.top && (
+                    <li>
+                      <span aria-hidden="true">🥇</span>
+                      {insights.top.category} takes {Math.round(insights.top.share * 100)}% of your
+                      tracked spending ({formatNaira(insights.top.total)}).
+                    </li>
+                  )}
+                  <li>
+                    <span aria-hidden="true">📅</span>
+                    You spend {formatNaira(insights.averagePerActiveDay)} on an average spending
+                    day, across {insights.activeDays} {insights.activeDays === 1 ? 'day' : 'days'}.
+                  </li>
+                  {insights.biggest && (
+                    <li>
+                      <span aria-hidden="true">🔎</span>
+                      Biggest single expense: {insights.biggest.description} —{' '}
+                      {formatNaira(insights.biggest.amount)}.
+                    </li>
+                  )}
+                </ul>
+              </article>
+            </div>
+          ) : (
+            <div className="insight-empty">
+              <h3>Your insights appear after your first expense</h3>
+              <p>
+                Log what you spend and this dashboard becomes a live picture of your habits —
+                categories, a six-month trend, and your biggest money leaks.
+              </p>
+              <div className="insight-empty-actions">
+                <Link to="/expense-planner" className="btn-primary">Log an expense</Link>
+                <button type="button" className="btn-secondary" onClick={handleDemo}>
+                  Load demo data
+                </button>
+              </div>
+            </div>
+          )}
+        </section>
+
+        <section className="dash-momentum">
+          <div className="dash-section-head">
+            <div>
+              <span className="dash-card-eyebrow">Habits & milestones</span>
+              <h2>Keep the momentum</h2>
+            </div>
+            <Link to="/money-iq" className="dash-section-link">Test your Money IQ →</Link>
+          </div>
+
+          <div className="momentum-grid">
+            <StreakCard dates={streakDates} best={streakBest} onCheckIn={handleCheckIn} />
+            <BadgesCard badges={badges} />
+          </div>
+        </section>
+
+        <div className="dash-tools-grid">
+          <WhatsIfCard
+            income={income}
+            needs={needs}
+            wants={wants}
+            savings={savings}
+            score={score}
+          />
+          <DataToolsCard
+            onExport={handleExport}
+            onImport={handleImport}
+            onDemo={handleDemo}
+            onReset={handleReset}
+            onRunSetup={() => setOnboarding({ done: false })}
+          />
         </div>
 
         <section className="dash-activity">
@@ -349,6 +655,15 @@ function Dashboard() {
           </p>
         </div>
       </div>
+
+      {!onboarding?.done && (
+        <OnboardingWizard
+          defaultIncome={plan?.income}
+          onFinish={finishOnboarding}
+          onSkip={skipOnboarding}
+          onDemo={handleDemo}
+        />
+      )}
     </div>
   );
 }

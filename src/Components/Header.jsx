@@ -2,6 +2,7 @@ import { useState, useEffect, startTransition } from 'react';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/auth-context';
 import { getInitials } from '../utils/auth';
+import { THEME_EVENT, setTheme } from '../utils/theme';
 import './Header.css';
 
 function Header() {
@@ -34,6 +35,13 @@ function Header() {
     document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
   }, [isDark]);
 
+  // Follow theme changes triggered elsewhere (command palette)
+  useEffect(() => {
+    const syncTheme = () => setIsDark(document.documentElement.dataset.theme === 'dark');
+    window.addEventListener(THEME_EVENT, syncTheme);
+    return () => window.removeEventListener(THEME_EVENT, syncTheme);
+  }, []);
+
   useEffect(() => {
     if (!isAccountOpen) return undefined;
 
@@ -48,9 +56,9 @@ function Header() {
   }, [isAccountOpen]);
 
   const toggleDarkMode = () => {
-    const newTheme = !isDark;
-    setIsDark(newTheme);
-    localStorage.setItem('bb_theme', newTheme ? 'dark' : 'light');
+    const next = !isDark;
+    setTheme(next);
+    setIsDark(next);
   };
 
   const closeMenu = () => setIsMenuOpen(false);
@@ -139,7 +147,35 @@ function Header() {
             <NavLink to="/about" onClick={closeMenu}>
               About
             </NavLink>
+            <button
+              type="button"
+              className="nav-search"
+              onClick={() => {
+                closeMenu();
+                window.dispatchEvent(new Event('bb:open-command'));
+              }}
+            >
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="7" />
+                <path d="m20 20-3.6-3.6" />
+              </svg>
+              Search pages
+            </button>
           </nav>
+
+          <button
+            type="button"
+            className="header-search"
+            onClick={() => window.dispatchEvent(new Event('bb:open-command'))}
+            aria-label="Search pages and actions (Ctrl K)"
+            title="Search (Ctrl K)"
+          >
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="7" />
+              <path d="m20 20-3.6-3.6" />
+            </svg>
+            <kbd>Ctrl K</kbd>
+          </button>
 
           <div className="header-account">
             {user ? (

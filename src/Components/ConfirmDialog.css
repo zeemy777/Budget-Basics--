@@ -1,0 +1,118 @@
+.confirm-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 11500;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background: rgba(3, 12, 10, 0.62);
+  backdrop-filter: blur(6px);
+  animation: bb-fade-in 0.2s ease both;
+}
+
+.confirm-card {
+  width: min(460px, 100%);
+  padding: 1.8rem;
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+  animation: bb-pop-in 0.28s var(--ease) both;
+}
+
+.confirm-badge {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  margin: 0 auto 0.9rem;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.14);
+  color: var(--accent-ink);
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+.confirm-card.tone-danger .confirm-badge {
+  background: rgba(251, 113, 133, 0.16);
+  color: #e11d48;
+}
+
+[data-theme="dark"] .confirm-card.tone-danger .confirm-badge {
+  color: #fda4af;
+}
+
+.confirm-card h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.3rem;
+}
+
+.confirm-card p {
+  margin: 0 0 1.4rem;
+  color: var(--text-muted);
+  font-size: 0.94rem;
+  line-height: 1.6;
+}
+
+.confirm-actions {
+  display: flex;
+  gap: 0.7rem;
+  justify-content: center;
+}
+
+.confirm-cancel,
+.confirm-apply {
+  padding: 0.7rem 1.4rem;
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: transform 0.2s var(--ease), filter 0.2s, background 0.2s;
+}
+
+.confirm-cancel {
+  background: var(--surface);
+  color: var(--text);
+  border: 1.5px solid var(--border-strong);
+}
+
+.confirm-apply {
+  background: linear-gradient(135deg, var(--mint-400), var(--mint-600));
+  color: var(--ink-950);
+  border: none;
+}
+
+.confirm-apply.danger {
+  background: linear-gradient(135deg, #fb7185, #e11d48);
+  color: #fff;
+}
+
+.confirm-cancel:hover,
+.confirm-apply:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.03);
+}
+
+@keyframes bb-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes bb-pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .confirm-backdrop,
+  .confirm-card {
+    animation: none;
+  }
+}

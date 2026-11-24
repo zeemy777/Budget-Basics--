@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './About.css';
 
 function About() {
@@ -89,6 +90,9 @@ function About() {
             <p>
               It is built using modern web technologies (React, HTML, CSS, JavaScript) 
               with a focus on responsiveness, accessibility, and clean educational design.
+            </p>
+            <p className="project-info-link">
+              <Link to="/case-study">Read the full project case study →</Link>
             </p>
           </div>
         </section>
